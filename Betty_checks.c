@@ -10,10 +10,10 @@ int main(void)
     int i;
 
     for (i = 0; i < 10; i++)
-    {
-        printf("Hello, Betty!\n");
-    }
+	{
+		printf("Hello, Betty!\n");
+	}
 
-    return 0;
+    return (0);
 }
 
