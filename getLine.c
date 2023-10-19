@@ -24,12 +24,12 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
 #else
 		v = _getline(info, buf, &len_p);
 #endif
-		if (r > 0)
+		if (v > 0)
 		{
 			if ((*buf)[v - 1] == '\n')
 			{
 				(*buf)[v - 1] = '\0'; /* remove trailing newline */
-				r--;
+				v--;
 			}
 			info->linecount_flag = 1;
 			remove_comments(*buf);
@@ -58,7 +58,7 @@ ssize_t get_input(info_t *info)
 	char **buf_p = &(info->arg), *p;
 
 	_putchar(BUF_FLUSH);
-	r = input_buf(info, &buf, &len);
+	v = input_buf(info, &buf, &len);
 	if (v == -1) /* EOF */
 		return (-1);
 	if (len)	/* we have commands left in the chain buffer */
@@ -103,7 +103,7 @@ ssize_t read_buf(info_t *info, char *buf, size_t *i)
 
 	if (*i)
 		return (0);
-	r = read(info->readfd, buf, READ_BUF_SIZE);
+	v = read(info->readfd, buf, READ_BUF_SIZE);
 	if (v >= 0)
 		*i = v;
 	return (v);
@@ -132,7 +132,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
 		i = len = 0;
 
 	v = read_buf(info, buf, &len);
-	if (v == -1 || (r == 0 && len == 0))
+	if (v == -1 || (v == 0 && len == 0))
 		return (-1);
 
 	c = _strchr(buf + i, '\n');
