@@ -11,4 +11,6 @@ void parse_input(char *input, char **args);
 #include <sys/types.h>
 #include <sys/wait.h>
 int betty_checks(void);
+void execute_command(char *command);
+int main(int argc, char *argv[]);
 #endif

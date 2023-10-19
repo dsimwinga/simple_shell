@@ -1,13 +1,14 @@
 #include "main.h"
 
 
-int main(void)
+int main(int argc, char *argv[])
 {
-    char *input;
-    size_t bufsize = 32;
-    int characters;
-    char *args[32];
-    pid_t pid;
+     	char *command = argv[1];
+	char *input;
+    	size_t bufsize = 32;
+    	int characters;
+    	char *args[32];
+    	pid_t pid;
 
     input = (char *)malloc(bufsize * sizeof(char));
     if (input == NULL)
@@ -53,5 +54,14 @@ int main(void)
 
 	free(input);
 	return (0);
+
+	 if (argc < 2)
+ 		{
+ 			printf("Usage: %s <command>\n", argv[0]);
+			return (1);
+ 		}
+	execute_command(command);
+ 	return (0);
+
 }
 
