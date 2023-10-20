@@ -2,12 +2,12 @@
 
 /**
  * main - entry point
- * @au: arg count
+ * @ac: arg count
  * @av: arg vector
  *
  * Return: 0 on success, 1 on error
  */
-int main(int au, char **av)
+int main(int ac, char **av)
 {
 	info_t info[] = { INFO_INIT };
 	int fd = 2;
@@ -17,7 +17,7 @@ int main(int au, char **av)
 		: "=r" (fd)
 		: "r" (fd));
 
-	if (au == 2)
+	if (ac == 2)
 	{
 		fd = open(av[1], O_RDONLY);
 		if (fd == -1)
@@ -42,4 +42,3 @@ int main(int au, char **av)
 	hsh(info, av);
 	return (EXIT_SUCCESS);
 }
-

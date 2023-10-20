@@ -4,13 +4,13 @@
  * is_chain - test if current char in buffer is a chain delimeter
  * @info: the parameter struct
  * @buf: the char buffer
- * @p: address of current position in buf
+ * @f: address of current position in buf
  *
  * Return: 1 if chain delimeter, 0 otherwise
  */
-int is_chain(info_t *info, char *buf, size_t *a)
+int is_chain(info_t *info, char *buf, size_t *f)
 {
-	size_t j = *a;
+	size_t j = *f;
 
 	if (buf[j] == '|' && buf[j + 1] == '|')
 	{
@@ -31,7 +31,7 @@ int is_chain(info_t *info, char *buf, size_t *a)
 	}
 	else
 		return (0);
-	*a = j;
+	*f = j;
 	return (1);
 }
 
@@ -79,7 +79,7 @@ int replace_alias(info_t *info)
 {
 	int a;
 	list_t *node;
-	char *f;
+	char *p;
 
 	for (a = 0; a < 10; a++)
 	{
@@ -87,24 +87,24 @@ int replace_alias(info_t *info)
 		if (!node)
 			return (0);
 		free(info->argv[0]);
-		f = _strchr(node->str, '=');
-		if (!f)
+		p = _strchr(node->str, '=');
+		if (!p)
 			return (0);
-		f = _strdup(f + 1);
-		if (!f)
+		p = _strdup(p + 1);
+		if (!p)
 			return (0);
-		info->argv[0] = f;
+		info->argv[0] = p;
 	}
 	return (1);
 }
 
 /**
- * replace_vars - replaces vars in the tokenized string
+ * replace_vic - replaces vars in the tokenized string
  * @info: the parameter struct
  *
  * Return: 1 if replaced, 0 otherwise
  */
-int replace_vars(info_t *info)
+int replace_vic(info_t *info)
 {
 	int a = 0;
 	list_t *node;
@@ -146,10 +146,10 @@ int replace_vars(info_t *info)
  *
  * Return: 1 if replaced, 0 otherwise
  */
-int replace_string(char **old, char *f)
+int replace_string(char **old, char *new)
 {
 	free(*old);
-	*old = f;
+	*old = new;
 	return (1);
 }
 
